@@ -1,5 +1,5 @@
 import React from 'react';
-import { useAppContext } from '../context/AppContext';
+import { useAppContext } from '../context/useAppContext';
 import RepoCard from './RepoCard';
 
 const RepoList: React.FC = () => {

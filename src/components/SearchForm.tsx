@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useAppContext } from '../context/AppContext';
+import { useAppContext } from '../context/useAppContext';
 
 const SearchForm: React.FC = () => {
   const { searchUsers, loading, error, searchResults, selectedUser } = useAppContext();

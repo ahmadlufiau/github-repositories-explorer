@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useAppContext } from '../context/AppContext';
+import { useAppContext } from '../context/useAppContext';
 import RepoCard from './RepoCard';
 import { getUserRepos } from '../services/githubApi';
 import type { GithubRepo, GithubUser } from '../services/githubApi';

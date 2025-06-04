@@ -38,14 +38,23 @@ export async function searchUsers(username: string): Promise<GithubUser[]> {
 }
 
 export async function getUserRepos(username: string): Promise<GithubRepo[]> {
-  const res = await fetch(
-    `${GITHUB_API_URL}/users/${encodeURIComponent(username)}/repos?sort=updated`,
-    {
-      headers: getGithubHeaders(),
+  let allRepos: GithubRepo[] = [];
+  let page = 1;
+  const perPage = 100;
+
+  while (true) {
+    const res = await fetch(
+      `${GITHUB_API_URL}/users/${encodeURIComponent(username)}/repos?sort=updated&per_page=${perPage}&page=${page}`,
+      { headers: getGithubHeaders() }
+    );
+    if (!res.ok) {
+      throw new Error('Failed to fetch user repos');
     }
-  );
-  if (!res.ok) {
-    throw new Error('Failed to fetch user repos');
+    const repos: GithubRepo[] = await res.json();
+    allRepos = allRepos.concat(repos);
+    if (repos.length < perPage) break; // No more pages
+    page++;
   }
-  return (await res.json()) as GithubRepo[];
+
+  return allRepos;
 }

@@ -1,5 +1,6 @@
-import React, { createContext, useContext, useReducer } from 'react';
+import React, { useReducer } from 'react';
 import type { ReactNode } from 'react';
+import { AppContext } from './AppContextContext';
 import { searchUsers as apiSearchUsers, getUserRepos } from '../services/githubApi';
 import type { GithubUser, GithubRepo } from '../services/githubApi';
 
@@ -55,8 +56,6 @@ function reducer(state: AppState, action: Action): AppState {
   }
 }
 
-const AppContext = createContext<AppContextType | undefined>(undefined);
-
 export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
@@ -101,9 +100,6 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   );
 };
 
-// eslint-disable-next-line react-refresh/only-export-components
-export const useAppContext = () => {
-  const ctx = useContext(AppContext);
-  if (!ctx) throw new Error('useAppContext must be used within AppProvider');
-  return ctx;
-};
+export type { AppContextType };
+  export { AppContext };
+
