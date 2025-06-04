@@ -1,54 +1,104 @@
-# React + TypeScript + Vite
+# GitHub Repositories Explorer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern web application built with React, TypeScript, and Vite that allows users to explore GitHub repositories. This application provides a seamless experience for searching GitHub users and viewing their public repositories.
 
-Currently, two official plugins are available:
+Demo Link : https://github-repositories-explorer-pi.vercel.app/
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## Expanding the ESLint configuration
+- 🔍 Search GitHub users by username (partial or complete)
+- 👥 View up to 5 matching GitHub user results
+- 📦 Browse all public repositories of selected users
+- 🎨 Modern UI with Tailwind CSS
+- ⌨️ Keyboard navigation support
+- ⚡ Fast and responsive design
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Tech Stack
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+- ⚛️ React with TypeScript
+- 🚀 Vite for fast development and building
+- 🎨 Tailwind CSS for styling
+- 🔄 React Context API for state management
+- 🧪 Vitest + React Testing Library for testing
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js
+- npm or yarn
+
+### Installation
+
+1. Clone the repository:
+```bash
+git clone https://github.com/ahmadlufiau/github-repositories-explorer.git
+cd github-repositories-explorer
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+2. Install dependencies:
+```bash
+npm install
+# or
+yarn install
 ```
+
+3. Start the development server:
+```bash
+npm run dev
+# or
+yarn dev
+```
+
+The application will be available at `http://localhost:5173`
+
+### Running Tests
+
+General Test
+
+```bash
+npm test
+# or
+yarn test
+```
+
+Coverage Test
+```bash
+npm run test:coverage
+# or
+yarn test:coverage
+```
+
+## Project Structure
+
+```
+src/
+├── components/         # React components
+│   ├── SearchForm.tsx  # Search input and button
+│   ├── UserList.tsx    # User search results
+│   ├── RepoList.tsx    # Repository list
+│   └── RepoCard.tsx    # Individual repository card
+├── context/           # React Context for state management
+├── services/          # API services
+│   └── githubApi.ts   # GitHub API integration
+└── App.tsx           # Main application component
+```
+
+## API Integration
+
+This application uses the GitHub REST API v3 [API Docs URL](https://docs.github.com/en/rest?apiVersion=2022-11-28):
+- User search: `GET https://api.github.com/search/users?q={username}&per_page=5`
+- User repositories: `GET https://api.github.com/users/{username}/repos`
+
+## Screenshot
+### Screenshot 1
+![Screenshot 1](docs/frame_1.png)
+
+### Screenshot 2
+![Screenshot 2](docs/frame_2.png)
+
+### Screenshot 3
+![Screenshot 1](docs/frame_3.png)
+
+### Test Coverage
+![Test Coverage](docs/test_coverage.png)
