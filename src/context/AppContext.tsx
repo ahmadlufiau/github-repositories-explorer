@@ -10,6 +10,7 @@ interface AppState {
   repos: GithubRepo[];
   loading: boolean;
   error: string | null;
+  searchQuery: string;
 }
 
 interface AppContextType extends AppState {
@@ -25,7 +26,8 @@ type Action =
   | { type: 'SELECT_USER_START' }
   | { type: 'SELECT_USER_SUCCESS'; user: GithubUser; repos: GithubRepo[] }
   | { type: 'SELECT_USER_ERROR'; payload: string }
-  | { type: 'RESET' };
+  | { type: 'RESET' }
+  | { type: 'SET_SEARCH_QUERY'; payload: string };
 
 const initialState: AppState = {
   searchResults: [],
@@ -33,6 +35,7 @@ const initialState: AppState = {
   repos: [],
   loading: false,
   error: null,
+  searchQuery: '',
 };
 
 function reducer(state: AppState, action: Action): AppState {
@@ -51,6 +54,8 @@ function reducer(state: AppState, action: Action): AppState {
       return { ...state, loading: false, error: action.payload };
     case 'RESET':
       return { ...initialState };
+    case 'SET_SEARCH_QUERY':
+      return { ...state, searchQuery: action.payload };
     default:
       return state;
   }
@@ -60,6 +65,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const searchUsers = async (username: string) => {
+    dispatch({ type: 'SET_SEARCH_QUERY', payload: username });
     dispatch({ type: 'SEARCH_START' });
     try {
       const users = await apiSearchUsers(username);
@@ -101,5 +107,5 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
 };
 
 export type { AppContextType };
-  export { AppContext };
+export { AppContext };
 
